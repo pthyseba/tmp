@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+\usepackage{listings}
+\begin{document}
+\section{Static polymorphism}
+Multiple and virtual inheritance: why better to use static polymorphism if possible
+
+
+\section{CRTP}
+ Top class is non-template class
+
+\begin{lstlisting}[language=c++]
+template <typename taDerived>
+class Base
+{
+public:
+  void Do() 
+  {
+    std::cout << ``Base Do'';
+  }
+
+  void Go()
+  {
+    static_cast<taDerived>(*this).Do();
+  }
+};
+
+class Derived : public Base<Derived>
+{
+public:
+  void Do() 
+  {
+    std::cout << ``Derived Do'';
+  }
+};
+\end{lstlisting}
+
+\section{Multilevel}
+Multilevel
+ - call chaining
+ - passing on top
+ - inheriting
+ - assembling final object: most derived cannot be template class - so use wrapper
+ - configurable layers
+ - Passing parameters to constructor: type list, extract
+ - multithreading T
+
+\section{Algorithm}
+Write algorithm, highlight verbs = chained calls
+
+\end{document}
